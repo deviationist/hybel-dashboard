@@ -1,13 +1,13 @@
 # Hybel Dashboard
 This repo contains a self-contained dashboard widget that displays rental unit portfolio insight to landlords.
 
-# The use of AI-tools
+## The use of AI-tools
 *Claude Code*
 
 *Figma AI*
 I'm no designer, so I used Figma AI to get me going on a basic dashboard layout. I started out by surveying the available data, create an intention about which views I'd like to display to the landlord. I then used these views in my prompts to Figma.
 
-# Consideration & Assumptions
+## Consideration & Assumptions
 My initial thoughts would be to use GraphQL and Apollo Client to allow for growing data needs to the dashboard, since sending multiple HTTP requests to custom API endpoints would create overhead, while using Apollo's BatchHttpLink would allow us to execute multiple queries in one request.
 
 I'm choosing Next.js due to the need for simple API endpoints. I'll also completely disabled SSR to allow for a client only React component dynamic, and not to focus on the dynamic between server- and client side dynamic at this point.
@@ -22,7 +22,7 @@ I also considered to use the opportunity to explore the use of [Convex.dev](http
 
 For table display I would use [TanStack Table](https://tanstack.com/table/latest) since it is a headless solution and we retain control over the presentation layer, but given the time constraint I'll do a more simple implementation using shadcn/ui.
 
-## Internationalization (i18n)
+### Internationalization (i18n)
 I skipped spending too much time on this, but in a real world scenario I'd consider:
 - using a package like [`react-intl`](https://www.npmjs.com/package/react-intl) for string translation
 - used UTC for storing dates in the backend, and used [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) to localize dates in the frontend according to the browser locale. If we need to deviate from the browser locale (for example to let the user set their own time zone), then I would use (`date-fns`)[https://www.npmjs.com/package/date-fns]. 
