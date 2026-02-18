@@ -52,7 +52,11 @@ export function CollectionStatus({ className }: CollectionStatusProps) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <div className="flex h-7 overflow-hidden rounded-lg bg-muted">
+        <div
+          className="flex h-7 overflow-hidden rounded-lg bg-muted"
+          role="img"
+          aria-label={`Collection progress: paid ${Math.round((data.paidAmount.amount / data.collectableRent.amount) * 100)}%, pending ${Math.round((data.pendingAmount.amount / data.collectableRent.amount) * 100)}%, overdue ${Math.round((data.overdueAmount.amount / data.collectableRent.amount) * 100)}%`}
+        >
           <div
             className="bg-gradient-to-r from-emerald-500 to-emerald-600 transition-all duration-500"
             style={{ width: `${(data.paidAmount.amount / data.collectableRent.amount) * 100}%` }}

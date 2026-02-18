@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { LocaleProvider } from '@/contexts/locale-context';
 import { ThemeProvider } from '@/contexts/theme-context';
 
@@ -9,18 +10,20 @@ const NoSsr = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
   const userLocale = 'nb-NO'; // TODO: Get from user settings, fallback to browser
   return (
-    <QueryClientProvider client={queryClient}>
-      <LocaleProvider value={userLocale}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-        {children}
-        </ThemeProvider>
-      </LocaleProvider>
-    </QueryClientProvider>
+    <NuqsAdapter>
+      <QueryClientProvider client={queryClient}>
+        <LocaleProvider value={userLocale}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+          {children}
+          </ThemeProvider>
+        </LocaleProvider>
+      </QueryClientProvider>
+    </NuqsAdapter>
   );
 };
 

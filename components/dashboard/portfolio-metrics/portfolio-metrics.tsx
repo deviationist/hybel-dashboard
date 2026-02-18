@@ -30,32 +30,32 @@ export function PortfolioMetrics() {
         className={columnSpanClass}
         label="Total Portfolio" 
         value={data.unitCount.toString()} 
-        icon={{ component: Building2, colorClass: "text-indigo-600", bgClass: "bg-indigo-50" }}
-      />
-      <MetricCard 
-        className={columnSpanClass}
-        label="Occupancy Rate" 
-        value={`${data.occupancyRate.toString()}%`} 
-        icon={{ component: Users, colorClass: "text-emerald-600", bgClass: "bg-emerald-50" }}
+        icon={{ component: Building2, colorClass: "text-indigo-600 dark:text-indigo-400", bgClass: "bg-indigo-50 dark:bg-indigo-950" }}
       />
       <MetricCard
         className={columnSpanClass}
-        label="Monthly Revenue" 
-        icon={{ component: TrendingUp, colorClass: "text-amber-600", bgClass: "bg-amber-50" }}
+        label="Occupancy Rate"
+        value={`${data.occupancyRate.toString()}%`}
+        icon={{ component: Users, colorClass: "text-emerald-600 dark:text-emerald-400", bgClass: "bg-emerald-50 dark:bg-emerald-950" }}
+      />
+      <MetricCard
+        className={columnSpanClass}
+        label="Monthly Revenue"
+        icon={{ component: TrendingUp, colorClass: "text-amber-600 dark:text-amber-400", bgClass: "bg-amber-50 dark:bg-amber-950" }}
       >
         <Currency {...data.monthlyRevenue} />
       </MetricCard>
-      <MetricCard 
+      <MetricCard
         className={columnSpanClass}
-        label="Pending Actions" 
-        value={data.pendingActions.amount.toString()} 
+        label="Pending Actions"
+        value={data.pendingActions.amount.toString()}
+        onClick={() => document.getElementById("pending-actions")?.scrollIntoView({ behavior: "smooth", block: "center" })}
         icon={{
           component: AlertCircle,
-          colorClass: data.pendingActions.overduePayments > 0 ? "text-rose-600" : "text-slate-600",
-          bgClass: data.pendingActions.overduePayments > 0 ? "bg-rose-50" : "bg-slate-50"
+          colorClass: data.pendingActions.overduePayments > 0 ? "text-rose-600 dark:text-rose-400" : "text-muted-foreground",
+          bgClass: data.pendingActions.overduePayments > 0 ? "bg-rose-50 dark:bg-rose-950" : "bg-muted"
         }}
       />
-      {/* TODO: Add link to pending actions */}
     </>
   );
 }

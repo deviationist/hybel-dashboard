@@ -1,7 +1,1 @@
-type UnitListProps = {
-  className?: string;
-}
-
-export function UnitList({ className }: UnitListProps) {
-  return <></>
-}
+export { UnitList } from "./unit-list/unit-list";

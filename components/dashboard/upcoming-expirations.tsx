@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { type UpcomingExpiration } from "@/types/dashboard";
 import { daysUntil } from "@/lib/date";
+import { formatAddressShort } from "@/lib/address";
 
 type UpcomingExpirationsProps = {
   className?: string;
@@ -39,7 +40,7 @@ export function UpcomingExpirations({ className }: UpcomingExpirationsProps) {
             return (
               <div key={i} className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <div>
-                  <p className="text-sm font-medium">{p.address.split(",")[0]}</p>
+                  <p className="text-sm font-medium">{formatAddressShort(p.address)}</p>
                   <p className="text-xs text-muted-foreground">{p.tenant.name}</p>
                 </div>
                 <div className="text-right">

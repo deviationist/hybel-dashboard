@@ -1,17 +1,40 @@
 import { PortfolioMetrics } from "@/types/dashboard";
 import { NextResponse } from "next/server";
+import { delay } from "@/app/api/delay";
+import { units } from "../units/data";
 
 export async function GET(): Promise<NextResponse<PortfolioMetrics>> {
+  await delay(300);
+
+  const unitCount = units.length;
+  const occupiedCount = units.filter((u) => u.status === "occupied").length;
+  const occupancyRate = Math.round((occupiedCount / unitCount) * 1000) / 10;
+
+  const monthlyRevenue = units.reduce(
+    (sum, u) => sum + (u.contract?.monthlyRent.amount ?? 0),
+    0
+  );
+
+  const overduePayments = units.filter(
+    (u) => u.contract?.paymentStatus === "overdue"
+  ).length;
+
+  const pendingPayments = units.filter(
+    (u) => u.contract?.paymentStatus === "pending"
+  ).length;
+
+  const vacantUnits = units.filter((u) => u.status === "vacant").length;
+
   return NextResponse.json({
-    unitCount: 24,
-    occupancyRate: 87.4,
+    unitCount,
+    occupancyRate,
     monthlyRevenue: {
-      amount: 125000,
-      currency: 'NOK',
+      amount: monthlyRevenue,
+      currency: "NOK",
     },
     pendingActions: {
-      amount: 2,
-      overduePayments: 1,
+      amount: overduePayments + pendingPayments + vacantUnits,
+      overduePayments,
     },
-  })
+  });
 }
