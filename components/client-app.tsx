@@ -8,7 +8,17 @@ import { ThemeProvider } from "@/contexts/theme-context";
 import { DEFAULT_LOCALE } from "@/lib/config";
 
 const NoSsr = ({ children }: { children: React.ReactNode }) => {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            staleTime: 5 * 60 * 1000, // 5 minutes
+          },
+        },
+      })
+  );
   const userLocale = DEFAULT_LOCALE; // TODO: Get from user settings, fallback to browser
   return (
     <NuqsAdapter>
