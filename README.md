@@ -16,11 +16,13 @@ I'll use shadcn/ui and Tailwind CSS since I'm very familiar with it, and since i
 
 I'm using Figma AI to get some initial inspiration on how to present the data. While waiting for Figma to generate the sketches I converted the Hybel-logo from PNG to vector, as a nice design-touch to get the basic branding in place.
 
-I'll use CSS grids for flexible arrangement of the different widget elements.
+I'll use CSS grids for flexible arrangement of the different widget elements, and I'll try to avoid wrapper divs so that each visible element is directly placed within the grid, not inside a "sub-container".
 
 I also considered to use the opportunity to explore the use of [Convex.dev](https://convex.dev/) to easily allow for realtime data via websockets. Otherwise I would use [TanStack Query](https://tanstack.com/query/latest).
 
 For table display I would use [TanStack Table](https://tanstack.com/table/latest) since it is a headless solution and we retain control over the presentation layer, but given the time constraint I'll do a more simple implementation using shadcn/ui.
+
+I did not spend time on making dark mode work, but the toggle is present in the header. This is primarily about style configuration, and dark-mode support in the components, something that shadcn/ui facilitates for.
 
 ### Internationalization (i18n)
 I skipped spending too much time on this, but in a real world scenario I'd consider:

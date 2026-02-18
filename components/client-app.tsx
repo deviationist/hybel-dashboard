@@ -2,13 +2,24 @@
 import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LocaleProvider } from '@/contexts/locale-context';
+import { ThemeProvider } from '@/contexts/theme-context';
 
 const NoSsr = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
-
+  const userLocale = 'nb-NO'; // TODO: Get from user settings, fallback to browser
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <LocaleProvider value={userLocale}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+        {children}
+        </ThemeProvider>
+      </LocaleProvider>
     </QueryClientProvider>
   );
 };

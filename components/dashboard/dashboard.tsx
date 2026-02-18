@@ -1,9 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { DashboardStats } from "./dashboard-stats/dashboard-stats";
 import { Separator } from "../ui/separator";
 import { DashboardHeader } from "./dashboard-header";
+import { PortfolioMetrics } from "./portfolio-metrics/portfolio-metrics";
+import { CollectionStatus } from "./collection-status";
+import { UpcomingExpirations } from "./upcoming-expirations";
+import { UnitList } from "./unit-list";
 
 type DashboardProps = {
   className?: string;
@@ -12,12 +15,15 @@ type DashboardProps = {
 export function Dashboard({ className }: DashboardProps) {
   return (
     <div className={cn(
-      "w-full grid grid-cols-24 gap-4",
+      "grid grid-cols-12 gap-6",
       className
     )}>
-      <DashboardHeader className="col-span-24" />
-      <Separator className="col-span-24 my-2" />
-      <DashboardStats />
+      <DashboardHeader className="col-span-full" />
+      <Separator className="col-span-full my-2" />
+      <PortfolioMetrics />
+      <CollectionStatus className="col-span-full" />
+      <UpcomingExpirations className="col-span-full" />
+      <UnitList className="col-span-full" />
     </div>
   );
 }

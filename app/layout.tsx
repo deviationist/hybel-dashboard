@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Landlord Dashboard - Hybel.no",
+  title: "Portfolio Dashboard - Hybel.no",
   description: "A simple dashboard for rental unit insights.",
 };
 

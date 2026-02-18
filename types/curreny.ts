@@ -1,9 +1,4 @@
-export type AmountWithCurrency = {
+export type CurrencyAmount = {
   amount: number;
   currency: string;
-};
-
-export type AmountWithUnit = {
-  amount: number;
-  unit: string;
 };
