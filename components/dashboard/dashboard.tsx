@@ -33,7 +33,10 @@ export function Dashboard({ className }: DashboardProps) {
       <Separator className="col-span-full my-2" />
       <PortfolioMetrics />
       <CollectionStatus className="col-span-full" />
-      <UpcomingExpirations className="col-span-full" />
+      <UpcomingExpirations
+        className="col-span-full"
+        onExpirationClick={handleActionClick}
+      />
       <PendingActions
         id="pending-actions"
         className="col-span-full"

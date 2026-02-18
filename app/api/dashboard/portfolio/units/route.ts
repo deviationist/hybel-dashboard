@@ -7,7 +7,7 @@ import {
 } from "@/types/dashboard";
 import { formatAddress } from "@/lib/address";
 import { NextRequest, NextResponse } from "next/server";
-import { differenceInCalendarDays } from "date-fns";
+import { differenceInCalendarDays, parseISO } from "date-fns";
 import { delay } from "@/app/api/delay";
 import { units } from "./data";
 
@@ -59,7 +59,7 @@ export async function GET(
       result = result.filter((u) => {
         if (!u.contract?.leaseExpires) return false;
         const daysLeft = differenceInCalendarDays(
-          new Date(u.contract.leaseExpires),
+          parseISO(u.contract.leaseExpires),
           now,
         );
         return daysLeft >= 0 && daysLeft <= days;

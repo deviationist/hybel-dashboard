@@ -6,79 +6,16 @@ import {
   type SortDirection,
 } from "@/types/dashboard";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, CalendarClock, X } from "lucide-react";
+import { CalendarClock, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FilterToggle } from "./filter-toggle";
+import { SortButton } from "./sort-button";
 
 type FilterBarProps = {
   className?: string;
   filters: UnitFilters;
   onChange: (filters: UnitFilters) => void;
 };
-
-function FilterToggle({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <Button
-      variant={active ? "default" : "outline"}
-      size="xs"
-      onClick={onClick}
-      aria-pressed={active}
-    >
-      {children}
-    </Button>
-  );
-}
-
-function SortButton({
-  label,
-  field,
-  currentSort,
-  currentDirection,
-  onClick,
-}: {
-  label: string;
-  field: UnitSortField;
-  currentSort?: UnitSortField;
-  currentDirection?: SortDirection;
-  onClick: (field: UnitSortField, direction: SortDirection | undefined) => void;
-}) {
-  const isActive = currentSort === field;
-
-  const handleClick = () => {
-    if (!isActive) {
-      onClick(field, "asc");
-    } else if (currentDirection === "asc") {
-      onClick(field, "desc");
-    } else {
-      onClick(field, undefined);
-    }
-  };
-
-  return (
-    <Button
-      variant={isActive ? "default" : "outline"}
-      size="xs"
-      onClick={handleClick}
-      aria-pressed={isActive}
-      aria-label={`Sort by ${label}${isActive ? `, ${currentDirection === "asc" ? "ascending" : "descending"}` : ""}`}
-    >
-      <ArrowUpDown className="size-3" />
-      {label}
-      {isActive && (
-        <span className="text-[10px] opacity-70">
-          {currentDirection === "asc" ? "A-Z" : "Z-A"}
-        </span>
-      )}
-    </Button>
-  );
-}
 
 function toggleArrayItem<T>(arr: T[] | undefined, item: T): T[] | undefined {
   const current = arr ?? [];

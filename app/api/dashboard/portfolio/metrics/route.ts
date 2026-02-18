@@ -27,6 +27,7 @@ export async function GET(): Promise<NextResponse<PortfolioMetrics>> {
 
   return NextResponse.json({
     unitCount,
+    occupiedCount,
     occupancyRate,
     monthlyRevenue: {
       amount: monthlyRevenue,
@@ -35,6 +36,8 @@ export async function GET(): Promise<NextResponse<PortfolioMetrics>> {
     pendingActions: {
       amount: overduePayments + pendingPayments + vacantUnits,
       overduePayments,
+      pendingPayments,
+      vacantUnits,
     },
   });
 }

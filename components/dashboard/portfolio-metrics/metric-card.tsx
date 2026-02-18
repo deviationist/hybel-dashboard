@@ -1,13 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { ChevronRight, LucideIcon } from "lucide-react";
 
-type MetricCardProps = {
+export type MetricCardProps = {
   className?: string;
   children?: React.ReactElement;
   label: string;
   value?: string;
+  subtitle?: string;
   onClick?: () => void;
   icon?: {
     component: LucideIcon;
@@ -21,12 +21,14 @@ export function MetricCard({
   children,
   label,
   value,
+  subtitle,
   onClick,
   icon: Icon,
 }: MetricCardProps) {
   return (
     <Card
       className={cn(
+        "pt-4 pb-3",
         className,
         onClick &&
           "cursor-pointer hover:ring-2 hover:ring-primary/20 transition-shadow",
@@ -46,7 +48,7 @@ export function MetricCard({
           : undefined
       }
     >
-      <CardContent className="flex gap-4">
+      <CardContent className="flex gap-4 px-4">
         {Icon && (
           <div>
             <div
@@ -64,26 +66,13 @@ export function MetricCard({
           <p className="text-xl font-bold text-foreground">
             {children ?? value}
           </p>
+          {subtitle && (
+            <p className="text-xs text-muted-foreground">{subtitle}</p>
+          )}
         </div>
         {onClick && (
           <ChevronRight className="size-4 self-center text-muted-foreground" />
         )}
-      </CardContent>
-    </Card>
-  );
-}
-
-export function MetricCardSkeleton({
-  className,
-}: Pick<MetricCardProps, "className">) {
-  return (
-    <Card className={className} aria-busy="true" aria-label="Loading metric">
-      <CardContent className="flex gap-4">
-        <Skeleton className="size-12 rounded-lg shrink-0" aria-hidden="true" />
-        <div className="flex-1 flex flex-col gap-2" aria-hidden="true">
-          <Skeleton className="w-24 h-3.5" />
-          <Skeleton className="w-16 h-6" />
-        </div>
       </CardContent>
     </Card>
   );

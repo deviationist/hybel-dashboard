@@ -27,15 +27,20 @@ export type CollectionStatus = {
 
 export type PortfolioMetrics = {
   unitCount: number;
+  occupiedCount: number;
   occupancyRate: number;
   monthlyRevenue: CurrencyAmount;
   pendingActions: {
     amount: number;
     overduePayments: number;
+    pendingPayments: number;
+    vacantUnits: number;
   };
 };
 
-export type UpcomingExpiration = Contract;
+export type UpcomingExpiration = Contract & {
+  unitId: string;
+};
 
 export type UnitStatus = "occupied" | "vacant" | "maintenance";
 export type PaymentStatus = "paid" | "pending" | "overdue";

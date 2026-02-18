@@ -92,7 +92,7 @@ export function UnitList({
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-2">
           <CardTitle className="font-medium text-muted-foreground">
             Rental Units (
             <span aria-live="polite" aria-atomic="true">

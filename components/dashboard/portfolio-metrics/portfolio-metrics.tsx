@@ -1,6 +1,7 @@
 import { type PortfolioMetrics } from "@/types/dashboard";
 import { useQuery } from "@tanstack/react-query";
-import { MetricCard, MetricCardSkeleton } from "./metric-card";
+import { MetricCard } from "./metric-card";
+import { MetricCardSkeleton } from "./metric-card-skeleton";
 import { AlertCircle, Building2, TrendingUp, Users } from "lucide-react";
 import { Currency } from "@/components/currency";
 
@@ -28,6 +29,7 @@ export function PortfolioMetrics() {
         className={columnSpanClass}
         label="Total Portfolio"
         value={data.unitCount.toString()}
+        subtitle={`${data.occupiedCount} occupied, ${data.unitCount - data.occupiedCount} vacant`}
         icon={{
           component: Building2,
           colorClass: "text-indigo-600 dark:text-indigo-400",
@@ -38,6 +40,7 @@ export function PortfolioMetrics() {
         className={columnSpanClass}
         label="Occupancy Rate"
         value={`${data.occupancyRate.toString()}%`}
+        subtitle={`${data.occupiedCount} out of ${data.unitCount} units`}
         icon={{
           component: Users,
           colorClass: "text-emerald-600 dark:text-emerald-400",
@@ -47,6 +50,7 @@ export function PortfolioMetrics() {
       <MetricCard
         className={columnSpanClass}
         label="Monthly Revenue"
+        subtitle={`Across ${data.occupiedCount} active leases`}
         icon={{
           component: TrendingUp,
           colorClass: "text-amber-600 dark:text-amber-400",
@@ -59,6 +63,7 @@ export function PortfolioMetrics() {
         className={columnSpanClass}
         label="Pending Actions"
         value={data.pendingActions.amount.toString()}
+        subtitle={`${data.pendingActions.overduePayments} overdue, ${data.pendingActions.pendingPayments} pending, ${data.pendingActions.vacantUnits} vacant`}
         onClick={() =>
           document
             .getElementById("pending-actions")

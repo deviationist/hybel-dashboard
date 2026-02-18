@@ -5,6 +5,7 @@ import { Currency } from "@/components/currency";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { daysUntil } from "@/lib/date";
+import { FormattedDate } from "@/components/formatted-date";
 import { formatAddress } from "@/lib/address";
 import {
   Item,
@@ -121,9 +122,7 @@ export function UnitRow({
                   <div>
                     <p className="text-muted-foreground">Lease Expires</p>
                     <p className="font-medium">
-                      {new Date(unit.contract.leaseExpires).toLocaleDateString(
-                        "nb-NO",
-                      )}
+                      <FormattedDate date={unit.contract.leaseExpires} />
                       {days !== null && days <= 90 && (
                         <span className="text-amber-600 ml-1">({days}d)</span>
                       )}

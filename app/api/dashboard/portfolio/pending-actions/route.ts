@@ -2,7 +2,7 @@ import { PendingAction } from "@/types/dashboard";
 import { NextResponse } from "next/server";
 import { delay } from "@/app/api/delay";
 import { units } from "../units/data";
-import { differenceInCalendarDays } from "date-fns";
+import { differenceInCalendarDays, parseISO } from "date-fns";
 import { formatCurrency } from "@/lib/currency";
 
 const EXPIRING_WITHIN_DAYS = 60;
@@ -31,7 +31,7 @@ export async function GET(): Promise<NextResponse<PendingAction[]>> {
     // Expiring contracts (within 60 days)
     if (unit.contract && unit.tenant) {
       const days = differenceInCalendarDays(
-        new Date(unit.contract.leaseExpires),
+        parseISO(unit.contract.leaseExpires),
         now,
       );
       if (days >= 0 && days <= EXPIRING_WITHIN_DAYS) {

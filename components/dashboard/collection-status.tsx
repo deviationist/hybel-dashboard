@@ -3,19 +3,11 @@ import { Currency } from "../currency";
 import { useQuery } from "@tanstack/react-query";
 import { type CollectionStatus } from "@/types/dashboard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { StatusDot } from "./status-dot";
 
 type CollectionStatusProps = {
   className?: string;
 };
-
-function StatusDot({ className }: { className: string }) {
-  return (
-    <span
-      className={cn("inline-block size-2 rounded-full shadow-sm", className)}
-    />
-  );
-}
 
 export function CollectionStatus({ className }: CollectionStatusProps) {
   const { data, isFetching } = useQuery<CollectionStatus>({
