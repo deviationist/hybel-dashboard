@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "../theme-toggle";
 
@@ -14,7 +15,8 @@ export function DashboardHeader({ className }: DashboardHeaderProps) {
       )}
     >
       <div className="space-y-1">
-        <h1 className="text-4xl font-black tracking-tight text-foreground">
+        <h1 className="flex items-center gap-3 text-4xl font-black tracking-tight text-foreground">
+          <Image src="/icon.svg" alt="Hybel logo" width={36} height={36} />
           Dashboard
         </h1>
         <p className="text-muted-foreground font-medium">

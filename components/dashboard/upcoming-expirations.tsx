@@ -45,7 +45,7 @@ export function UpcomingExpirations({
             No upcoming expirations
           </p>
         ) : (
-          upcomingExpirations.map((p, i) => {
+          upcomingExpirations.map((p) => {
             const days = daysUntil(p.leaseExpires)!;
             const urgent = days < 90;
             return (
