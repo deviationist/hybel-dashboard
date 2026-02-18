@@ -5,7 +5,7 @@ This repo contains a self-contained dashboard widget that displays rental unit p
 ## The use of AI-tools
 
 ### Claude Code
-I started out without Claude Code, for two reasons - I wanted to be fully in control when I laid out the foundation (even tho planning with Claude works well), and I wanted to make sure I was not "detached" from the code which is prone to happen when only prompting. Since I will present this code and the reasoning behind it I wanted to reduce the use of Claude until the foundation was fully laid out. I introduced Claude using Claude Code where I developed the filtering feature, the unit list, generated more test data etc.
+I started out without Claude Code, for two reasons - I wanted to be fully in control when I laid out the foundation (even tho planning with Claude works well), and I wanted to make sure I was not "detached" from the code which is prone to happen when only prompting. Since I will present this code and the reasoning behind it I wanted to reduce the use of Claude until the foundation was fully laid out. I introduced Claude using Claude Code where I developed the filtering feature, the unit list, generated more test data etc. I also used Claude to document the project.
 
 ### Figma AI
 I'm no designer, so I used Figma AI to get me going on a basic dashboard layout. I started out by surveying the available data, create an intention about which views I'd like to display to the landlord. I then used these views in my prompts to Figma.
