@@ -6,22 +6,26 @@ import { formatAddressShort } from "@/lib/address";
 
 type UpcomingExpirationsProps = {
   className?: string;
-}
+};
 
 export function UpcomingExpirations({ className }: UpcomingExpirationsProps) {
-  const { data: upcomingExpirations, isFetching } = useQuery<UpcomingExpiration[]>({
-    queryKey: ['dashboard', 'portfolio', 'upcoming-expirations'],
+  const { data: upcomingExpirations, isFetching } = useQuery<
+    UpcomingExpiration[]
+  >({
+    queryKey: ["dashboard", "portfolio", "upcoming-expirations"],
     queryFn: async () => {
-      const response = await fetch('/api/dashboard/portfolio/upcoming-expirations');
-      if (!response.ok) throw new Error('Failed to fetch upcoming expirations');
+      const response = await fetch(
+        "/api/dashboard/portfolio/upcoming-expirations",
+      );
+      if (!response.ok) throw new Error("Failed to fetch upcoming expirations");
       return await response.json();
     },
   });
   if (isFetching) {
-    return <></> // TODO: Add loading skeleton
+    return <></>; // TODO: Add loading skeleton
   }
   if (!upcomingExpirations) {
-    return <>No data</> // TODO: Display error dialog
+    return <>No data</>; // TODO: Display error dialog
   }
   return (
     <Card className={className}>
@@ -32,22 +36,35 @@ export function UpcomingExpirations({ className }: UpcomingExpirationsProps) {
       </CardHeader>
       <CardContent className="divide-y divide-border">
         {upcomingExpirations.length === 0 ? (
-          <p className="text-sm font-medium text-muted-foreground">No upcoming expirations</p>
+          <p className="text-sm font-medium text-muted-foreground">
+            No upcoming expirations
+          </p>
         ) : (
           upcomingExpirations.map((p, i) => {
             const days = daysUntil(p.leaseExpires)!;
             const urgent = days < 90;
             return (
-              <div key={i} className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div
+                key={i}
+                className="flex items-center justify-between py-3 first:pt-0 last:pb-0"
+              >
                 <div>
-                  <p className="text-sm font-medium">{formatAddressShort(p.address)}</p>
-                  <p className="text-xs text-muted-foreground">{p.tenant.name}</p>
+                  <p className="text-sm font-medium">
+                    {formatAddressShort(p.address)}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {p.tenant.name}
+                  </p>
                 </div>
                 <div className="text-right">
-                  <p className={`text-sm font-semibold ${urgent ? "text-red-400" : "text-amber-400"}`}>
+                  <p
+                    className={`text-sm font-semibold ${urgent ? "text-red-400" : "text-amber-400"}`}
+                  >
                     {days} days
                   </p>
-                  <p className="text-xs text-muted-foreground">{new Date(p.leaseExpires).toDateString()}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(p.leaseExpires).toDateString()}
+                  </p>
                 </div>
               </div>
             );

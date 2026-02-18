@@ -1,4 +1,9 @@
-import { useQueryStates, parseAsString, parseAsInteger, parseAsArrayOf } from "nuqs";
+import {
+  useQueryStates,
+  parseAsString,
+  parseAsInteger,
+  parseAsArrayOf,
+} from "nuqs";
 import { type UnitFilters } from "@/types/dashboard";
 
 const filterParsers = {
@@ -23,11 +28,16 @@ export function useUnitFilters() {
   });
 
   const filters: UnitFilters = {
-    status: params.status?.length ? (params.status as UnitFilters["status"]) : undefined,
-    paymentStatus: params.paymentStatus?.length ? (params.paymentStatus as UnitFilters["paymentStatus"]) : undefined,
+    status: params.status?.length
+      ? (params.status as UnitFilters["status"])
+      : undefined,
+    paymentStatus: params.paymentStatus?.length
+      ? (params.paymentStatus as UnitFilters["paymentStatus"])
+      : undefined,
     expiringWithinDays: params.expiringWithinDays ?? undefined,
     sortBy: (params.sortBy as UnitFilters["sortBy"]) ?? undefined,
-    sortDirection: (params.sortDirection as UnitFilters["sortDirection"]) ?? undefined,
+    sortDirection:
+      (params.sortDirection as UnitFilters["sortDirection"]) ?? undefined,
   };
 
   const setFilters = (next: UnitFilters) => {

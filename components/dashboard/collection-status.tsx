@@ -1,24 +1,30 @@
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Currency } from '../currency';
-import { useQuery } from '@tanstack/react-query';
-import { type CollectionStatus } from '@/types/dashboard';
-import { Skeleton } from '@/components/ui/skeleton';
-import { cn } from '@/lib/utils';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Currency } from "../currency";
+import { useQuery } from "@tanstack/react-query";
+import { type CollectionStatus } from "@/types/dashboard";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 type CollectionStatusProps = {
   className?: string;
-}
+};
 
 function StatusDot({ className }: { className: string }) {
-  return <span className={cn("inline-block size-2 rounded-full shadow-sm", className)} />;
+  return (
+    <span
+      className={cn("inline-block size-2 rounded-full shadow-sm", className)}
+    />
+  );
 }
 
 export function CollectionStatus({ className }: CollectionStatusProps) {
   const { data, isFetching } = useQuery<CollectionStatus>({
-    queryKey: ['dashboard', 'portfolio', 'collection-status'],
+    queryKey: ["dashboard", "portfolio", "collection-status"],
     queryFn: async () => {
-      const response = await fetch('/api/dashboard/portfolio/collection-status');
-      if (!response.ok) throw new Error('Failed to fetch collection status');
+      const response = await fetch(
+        "/api/dashboard/portfolio/collection-status",
+      );
+      if (!response.ok) throw new Error("Failed to fetch collection status");
       return await response.json();
     },
   });
@@ -42,7 +48,7 @@ export function CollectionStatus({ className }: CollectionStatusProps) {
     );
   }
   if (!data) {
-    return <>No data</> // TODO: Display error dialog
+    return <>No data</>; // TODO: Display error dialog
   }
   return (
     <Card className={className}>
@@ -59,15 +65,21 @@ export function CollectionStatus({ className }: CollectionStatusProps) {
         >
           <div
             className="bg-gradient-to-r from-emerald-500 to-emerald-600 transition-all duration-500"
-            style={{ width: `${(data.paidAmount.amount / data.collectableRent.amount) * 100}%` }}
+            style={{
+              width: `${(data.paidAmount.amount / data.collectableRent.amount) * 100}%`,
+            }}
           />
           <div
             className="bg-gradient-to-r from-amber-500 to-amber-600 transition-all duration-500"
-            style={{ width: `${(data.pendingAmount.amount / data.collectableRent.amount) * 100}%` }}
+            style={{
+              width: `${(data.pendingAmount.amount / data.collectableRent.amount) * 100}%`,
+            }}
           />
           <div
             className="bg-gradient-to-r from-red-500 to-red-600 transition-all duration-500"
-            style={{ width: `${(data.overdueAmount.amount / data.collectableRent.amount) * 100}%` }}
+            style={{
+              width: `${(data.overdueAmount.amount / data.collectableRent.amount) * 100}%`,
+            }}
           />
         </div>
         <div className="flex flex-wrap gap-5 text-xs text-muted-foreground">
@@ -86,5 +98,5 @@ export function CollectionStatus({ className }: CollectionStatusProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

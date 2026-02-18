@@ -14,9 +14,15 @@ export async function GET(): Promise<NextResponse<CollectionStatus>> {
     if (!unit.contract) continue;
     const rent = unit.contract.monthlyRent.amount;
     switch (unit.contract.paymentStatus) {
-      case "paid": paid += rent; break;
-      case "pending": pending += rent; break;
-      case "overdue": overdue += rent; break;
+      case "paid":
+        paid += rent;
+        break;
+      case "pending":
+        pending += rent;
+        break;
+      case "overdue":
+        overdue += rent;
+        break;
     }
   }
 

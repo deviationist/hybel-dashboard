@@ -15,7 +15,9 @@ type DashboardProps = {
 };
 
 export function Dashboard({ className }: DashboardProps) {
-  const [highlightedUnitId, setHighlightedUnitId] = useState<string | null>(null);
+  const [highlightedUnitId, setHighlightedUnitId] = useState<string | null>(
+    null,
+  );
 
   const handleActionClick = useCallback((unitId: string) => {
     setHighlightedUnitId(unitId);
@@ -26,10 +28,7 @@ export function Dashboard({ className }: DashboardProps) {
   }, []);
 
   return (
-    <div className={cn(
-      "grid grid-cols-12 gap-6",
-      className
-    )}>
+    <div className={cn("grid grid-cols-12 gap-6", className)}>
       <DashboardHeader className="col-span-full" />
       <Separator className="col-span-full my-2" />
       <PortfolioMetrics />

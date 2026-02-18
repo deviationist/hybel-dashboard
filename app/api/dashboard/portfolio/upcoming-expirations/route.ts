@@ -13,11 +13,16 @@ export async function GET(): Promise<NextResponse<UpcomingExpiration[]>> {
   const expirations: UpcomingExpiration[] = units
     .filter((u) => u.contract && u.tenant)
     .filter((u) => {
-      const days = differenceInCalendarDays(new Date(u.contract!.leaseExpires), now);
+      const days = differenceInCalendarDays(
+        new Date(u.contract!.leaseExpires),
+        now,
+      );
       return days >= 0 && days <= EXPIRING_WITHIN_DAYS;
     })
-    .sort((a, b) =>
-      new Date(a.contract!.leaseExpires).getTime() - new Date(b.contract!.leaseExpires).getTime()
+    .sort(
+      (a, b) =>
+        new Date(a.contract!.leaseExpires).getTime() -
+        new Date(b.contract!.leaseExpires).getTime(),
     )
     .map((u) => ({
       leaseExpires: new Date(u.contract!.leaseExpires),

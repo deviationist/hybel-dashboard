@@ -18,6 +18,7 @@ Rental unit portfolio dashboard for landlords on Hybel.no. Built as a client-onl
 **Client-only rendering:** SSR is disabled via `next/dynamic` in `components/client-app.tsx`, which wraps all children. The root layout (`app/layout.tsx`) renders `<ClientApp>` which provides all context providers.
 
 **Provider stack** (in `client-app.tsx`):
+
 - `QueryClientProvider` (TanStack Query) — data fetching/caching
 - `LocaleProvider` — locale string context (hardcoded to `nb-NO` currently)
 - `ThemeProvider` — next-themes wrapper for dark/light mode

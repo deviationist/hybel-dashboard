@@ -10,7 +10,7 @@ import { ArrowUpDown, CalendarClock, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type FilterBarProps = {
-  className?: string;  
+  className?: string;
   filters: UnitFilters;
   onChange: (filters: UnitFilters) => void;
 };
@@ -72,7 +72,9 @@ function SortButton({
       <ArrowUpDown className="size-3" />
       {label}
       {isActive && (
-        <span className="text-[10px] opacity-70">{currentDirection === "asc" ? "A-Z" : "Z-A"}</span>
+        <span className="text-[10px] opacity-70">
+          {currentDirection === "asc" ? "A-Z" : "Z-A"}
+        </span>
       )}
     </Button>
   );
@@ -97,7 +99,10 @@ export function FilterBar({ className, filters, onChange }: FilterBarProps) {
   };
 
   const togglePayment = (ps: PaymentStatus) => {
-    onChange({ ...filters, paymentStatus: toggleArrayItem(filters.paymentStatus, ps) });
+    onChange({
+      ...filters,
+      paymentStatus: toggleArrayItem(filters.paymentStatus, ps),
+    });
   };
 
   const toggleExpiring = () => {
@@ -107,7 +112,10 @@ export function FilterBar({ className, filters, onChange }: FilterBarProps) {
     });
   };
 
-  const handleSort = (field: UnitSortField, direction: SortDirection | undefined) => {
+  const handleSort = (
+    field: UnitSortField,
+    direction: SortDirection | undefined,
+  ) => {
     if (direction) {
       onChange({ ...filters, sortBy: field, sortDirection: direction });
     } else {
@@ -122,37 +130,66 @@ export function FilterBar({ className, filters, onChange }: FilterBarProps) {
   return (
     <div className={cn("space-y-2 px-6 pb-2", className)}>
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="text-xs font-medium text-muted-foreground mr-1">Status</span>
-        <FilterToggle active={filters.status?.includes("occupied") ?? false} onClick={() => toggleStatus("occupied")}>
+        <span className="text-xs font-medium text-muted-foreground mr-1">
+          Status
+        </span>
+        <FilterToggle
+          active={filters.status?.includes("occupied") ?? false}
+          onClick={() => toggleStatus("occupied")}
+        >
           Occupied
         </FilterToggle>
-        <FilterToggle active={filters.status?.includes("vacant") ?? false} onClick={() => toggleStatus("vacant")}>
+        <FilterToggle
+          active={filters.status?.includes("vacant") ?? false}
+          onClick={() => toggleStatus("vacant")}
+        >
           Vacant
         </FilterToggle>
-        <FilterToggle active={filters.status?.includes("maintenance") ?? false} onClick={() => toggleStatus("maintenance")}>
+        <FilterToggle
+          active={filters.status?.includes("maintenance") ?? false}
+          onClick={() => toggleStatus("maintenance")}
+        >
           Maintenance
         </FilterToggle>
 
-        <span className="text-xs font-medium text-muted-foreground ml-3 mr-1">Payment</span>
-        <FilterToggle active={filters.paymentStatus?.includes("paid") ?? false} onClick={() => togglePayment("paid")}>
+        <span className="text-xs font-medium text-muted-foreground ml-3 mr-1">
+          Payment
+        </span>
+        <FilterToggle
+          active={filters.paymentStatus?.includes("paid") ?? false}
+          onClick={() => togglePayment("paid")}
+        >
           Paid
         </FilterToggle>
-        <FilterToggle active={filters.paymentStatus?.includes("pending") ?? false} onClick={() => togglePayment("pending")}>
+        <FilterToggle
+          active={filters.paymentStatus?.includes("pending") ?? false}
+          onClick={() => togglePayment("pending")}
+        >
           Pending
         </FilterToggle>
-        <FilterToggle active={filters.paymentStatus?.includes("overdue") ?? false} onClick={() => togglePayment("overdue")}>
+        <FilterToggle
+          active={filters.paymentStatus?.includes("overdue") ?? false}
+          onClick={() => togglePayment("overdue")}
+        >
           Overdue
         </FilterToggle>
 
-        <span className="text-xs font-medium text-muted-foreground ml-3 mr-1">Lease</span>
-        <FilterToggle active={!!filters.expiringWithinDays} onClick={toggleExpiring}>
+        <span className="text-xs font-medium text-muted-foreground ml-3 mr-1">
+          Lease
+        </span>
+        <FilterToggle
+          active={!!filters.expiringWithinDays}
+          onClick={toggleExpiring}
+        >
           <CalendarClock className="size-3" />
           Expiring soon
         </FilterToggle>
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="text-xs font-medium text-muted-foreground mr-1">Sort by</span>
+        <span className="text-xs font-medium text-muted-foreground mr-1">
+          Sort by
+        </span>
         <SortButton
           label="Address"
           field="address"
@@ -176,7 +213,12 @@ export function FilterBar({ className, filters, onChange }: FilterBarProps) {
         />
 
         {hasFilters && (
-          <Button variant="ghost" size="xs" onClick={clearAll} className="ml-auto text-muted-foreground">
+          <Button
+            variant="ghost"
+            size="xs"
+            onClick={clearAll}
+            className="ml-auto text-muted-foreground"
+          >
             <X className="size-3" />
             Clear filters
           </Button>

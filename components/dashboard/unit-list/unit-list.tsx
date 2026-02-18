@@ -21,23 +21,32 @@ type UnitListProps = {
 
 function buildQueryString(filters: UnitFilters): string {
   const params = new URLSearchParams();
-  if (filters.status?.length) filters.status.forEach((s) => params.append("status", s));
-  if (filters.paymentStatus?.length) filters.paymentStatus.forEach((s) => params.append("paymentStatus", s));
-  if (filters.expiringWithinDays) params.set("expiringWithinDays", filters.expiringWithinDays.toString());
+  if (filters.status?.length)
+    filters.status.forEach((s) => params.append("status", s));
+  if (filters.paymentStatus?.length)
+    filters.paymentStatus.forEach((s) => params.append("paymentStatus", s));
+  if (filters.expiringWithinDays)
+    params.set("expiringWithinDays", filters.expiringWithinDays.toString());
   if (filters.sortBy) params.set("sortBy", filters.sortBy);
   if (filters.sortDirection) params.set("sortDirection", filters.sortDirection);
   const qs = params.toString();
   return qs ? `?${qs}` : "";
 }
 
-export function UnitList({ className, highlightedUnitId, onHighlightHandled }: UnitListProps) {
+export function UnitList({
+  className,
+  highlightedUnitId,
+  onHighlightHandled,
+}: UnitListProps) {
   const [manualExpandedId, setManualExpandedId] = useState<string | null>(null);
   const [filters, setFilters] = useUnitFilters();
 
   const { data, isFetching, isPlaceholderData } = useQuery<RentalUnit[]>({
     queryKey: ["dashboard", "portfolio", "units", filters],
     queryFn: async () => {
-      const response = await fetch(`/api/dashboard/portfolio/units${buildQueryString(filters)}`);
+      const response = await fetch(
+        `/api/dashboard/portfolio/units${buildQueryString(filters)}`,
+      );
       if (!response.ok) throw new Error("Failed to fetch units");
       return await response.json();
     },
@@ -85,16 +94,28 @@ export function UnitList({ className, highlightedUnitId, onHighlightHandled }: U
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle className="font-medium text-muted-foreground">
-            Rental Units (<span aria-live="polite" aria-atomic="true">{data.length}</span>)
+            Rental Units (
+            <span aria-live="polite" aria-atomic="true">
+              {data.length}
+            </span>
+            )
           </CardTitle>
           {isRefetching && (
-            <Loader2 className="size-4 animate-spin text-muted-foreground" aria-label="Loading" />
+            <Loader2
+              className="size-4 animate-spin text-muted-foreground"
+              aria-label="Loading"
+            />
           )}
         </div>
       </CardHeader>
       <FilterBar filters={filters} onChange={setFilters} className="mb-2" />
       <Separator />
-      <CardContent className={cn("p-0 transition-opacity duration-200", isRefetching && "opacity-50")}>
+      <CardContent
+        className={cn(
+          "p-0 transition-opacity duration-200",
+          isRefetching && "opacity-50",
+        )}
+      >
         {data.length === 0 ? (
           <p className="p-6 text-center text-sm text-muted-foreground">
             No units match the current filters.

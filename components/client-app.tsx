@@ -1,14 +1,14 @@
 "use client";
-import dynamic from 'next/dynamic'
-import React, { useState } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { LocaleProvider } from '@/contexts/locale-context';
-import { ThemeProvider } from '@/contexts/theme-context';
+import dynamic from "next/dynamic";
+import React, { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { LocaleProvider } from "@/contexts/locale-context";
+import { ThemeProvider } from "@/contexts/theme-context";
 
 const NoSsr = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
-  const userLocale = 'nb-NO'; // TODO: Get from user settings, fallback to browser
+  const userLocale = "nb-NO"; // TODO: Get from user settings, fallback to browser
   return (
     <NuqsAdapter>
       <QueryClientProvider client={queryClient}>
@@ -19,7 +19,7 @@ const NoSsr = ({ children }: { children: React.ReactNode }) => {
             enableSystem
             disableTransitionOnChange
           >
-          {children}
+            {children}
           </ThemeProvider>
         </LocaleProvider>
       </QueryClientProvider>
@@ -28,5 +28,5 @@ const NoSsr = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default dynamic(() => Promise.resolve(NoSsr), {
-  ssr: false
-})
+  ssr: false,
+});

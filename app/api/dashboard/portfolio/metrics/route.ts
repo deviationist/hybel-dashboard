@@ -12,15 +12,15 @@ export async function GET(): Promise<NextResponse<PortfolioMetrics>> {
 
   const monthlyRevenue = units.reduce(
     (sum, u) => sum + (u.contract?.monthlyRent.amount ?? 0),
-    0
+    0,
   );
 
   const overduePayments = units.filter(
-    (u) => u.contract?.paymentStatus === "overdue"
+    (u) => u.contract?.paymentStatus === "overdue",
   ).length;
 
   const pendingPayments = units.filter(
-    (u) => u.contract?.paymentStatus === "pending"
+    (u) => u.contract?.paymentStatus === "pending",
   ).length;
 
   const vacantUnits = units.filter((u) => u.status === "vacant").length;

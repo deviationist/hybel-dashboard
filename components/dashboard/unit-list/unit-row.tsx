@@ -23,7 +23,12 @@ type UnitRowProps = {
   onToggle: () => void;
 };
 
-export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowProps) {
+export function UnitRow({
+  unit,
+  isExpanded,
+  isHighlighted,
+  onToggle,
+}: UnitRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,17 +37,24 @@ export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowPr
     }
   }, [isHighlighted]);
 
-  const days = unit.contract?.leaseExpires ? daysUntil(unit.contract.leaseExpires) : null;
+  const days = unit.contract?.leaseExpires
+    ? daysUntil(unit.contract.leaseExpires)
+    : null;
 
   return (
     <div ref={rowRef}>
       <Item
         className={cn(
           "cursor-pointer hover:bg-accent/50",
-          isHighlighted && "ring-2 ring-primary/30 bg-primary/5"
+          isHighlighted && "ring-2 ring-primary/30 bg-primary/5",
         )}
         onClick={onToggle}
-        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onToggle();
+          }
+        }}
         role="button"
         tabIndex={0}
         aria-expanded={isExpanded}
@@ -54,7 +66,9 @@ export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowPr
             {formatAddress(unit.address)}
           </ItemTitle>
           <ItemDescription>
-            {unit.tenant ? unit.tenant.name : unitStatusConfig[unit.status].label}
+            {unit.tenant
+              ? unit.tenant.name
+              : unitStatusConfig[unit.status].label}
           </ItemDescription>
         </ItemContent>
 
@@ -62,9 +76,14 @@ export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowPr
           {unit.contract ? (
             <>
               <span className="text-sm font-medium text-muted-foreground hidden sm:inline">
-                <Currency {...unit.contract.monthlyRent} />/mo
+                <Currency {...unit.contract.monthlyRent} />
+                /mo
               </span>
-              <Badge className={paymentStatusConfig[unit.contract.paymentStatus].className}>
+              <Badge
+                className={
+                  paymentStatusConfig[unit.contract.paymentStatus].className
+                }
+              >
                 {paymentStatusConfig[unit.contract.paymentStatus].label}
               </Badge>
             </>
@@ -76,7 +95,7 @@ export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowPr
           <ChevronDown
             className={cn(
               "size-4 text-muted-foreground transition-transform duration-200",
-              isExpanded && "rotate-180"
+              isExpanded && "rotate-180",
             )}
           />
         </ItemActions>
@@ -85,7 +104,7 @@ export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowPr
       <div
         className={cn(
           "grid transition-[grid-template-rows] duration-200 ease-in-out",
-          isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
         <div className="overflow-hidden">
@@ -95,12 +114,16 @@ export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowPr
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
                   <div>
                     <p className="text-muted-foreground">Monthly Rent</p>
-                    <p className="font-medium"><Currency {...unit.contract.monthlyRent} /></p>
+                    <p className="font-medium">
+                      <Currency {...unit.contract.monthlyRent} />
+                    </p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">Lease Expires</p>
                     <p className="font-medium">
-                      {new Date(unit.contract.leaseExpires).toLocaleDateString("nb-NO")}
+                      {new Date(unit.contract.leaseExpires).toLocaleDateString(
+                        "nb-NO",
+                      )}
                       {days !== null && days <= 90 && (
                         <span className="text-amber-600 ml-1">({days}d)</span>
                       )}
@@ -108,7 +131,13 @@ export function UnitRow({ unit, isExpanded, isHighlighted, onToggle }: UnitRowPr
                   </div>
                   <div>
                     <p className="text-muted-foreground">Payment Status</p>
-                    <Badge className={cn("mt-0.5", paymentStatusConfig[unit.contract.paymentStatus].className)}>
+                    <Badge
+                      className={cn(
+                        "mt-0.5",
+                        paymentStatusConfig[unit.contract.paymentStatus]
+                          .className,
+                      )}
+                    >
                       {paymentStatusConfig[unit.contract.paymentStatus].label}
                     </Badge>
                   </div>

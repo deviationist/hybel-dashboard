@@ -1,4 +1,10 @@
-import { RentalUnit, UnitStatus, PaymentStatus, UnitSortField, SortDirection } from "@/types/dashboard";
+import {
+  RentalUnit,
+  UnitStatus,
+  PaymentStatus,
+  UnitSortField,
+  SortDirection,
+} from "@/types/dashboard";
 import { formatAddress } from "@/lib/address";
 import { NextRequest, NextResponse } from "next/server";
 import { differenceInCalendarDays } from "date-fns";
@@ -10,15 +16,24 @@ const validPaymentStatuses: PaymentStatus[] = ["paid", "pending", "overdue"];
 const validSortFields: UnitSortField[] = ["address", "rent", "leaseExpires"];
 const validSortDirections: SortDirection[] = ["asc", "desc"];
 
-export async function GET(request: NextRequest): Promise<NextResponse<RentalUnit[]>> {
+export async function GET(
+  request: NextRequest,
+): Promise<NextResponse<RentalUnit[]>> {
   await delay(500);
   const { searchParams } = request.nextUrl;
 
-  const statuses = searchParams.getAll("status").filter((s): s is UnitStatus => validStatuses.includes(s as UnitStatus));
-  const paymentStatuses = searchParams.getAll("paymentStatus").filter((s): s is PaymentStatus => validPaymentStatuses.includes(s as PaymentStatus));
+  const statuses = searchParams
+    .getAll("status")
+    .filter((s): s is UnitStatus => validStatuses.includes(s as UnitStatus));
+  const paymentStatuses = searchParams
+    .getAll("paymentStatus")
+    .filter((s): s is PaymentStatus =>
+      validPaymentStatuses.includes(s as PaymentStatus),
+    );
   const expiringWithinDays = searchParams.get("expiringWithinDays");
   const sortBy = searchParams.get("sortBy") as UnitSortField | null;
-  const sortDirection = (searchParams.get("sortDirection") as SortDirection | null) ?? "asc";
+  const sortDirection =
+    (searchParams.get("sortDirection") as SortDirection | null) ?? "asc";
 
   let result = [...units];
 
@@ -29,7 +44,11 @@ export async function GET(request: NextRequest): Promise<NextResponse<RentalUnit
 
   // Filter by payment status (multiple allowed)
   if (paymentStatuses.length > 0) {
-    result = result.filter((u) => u.contract?.paymentStatus != null && paymentStatuses.includes(u.contract.paymentStatus));
+    result = result.filter(
+      (u) =>
+        u.contract?.paymentStatus != null &&
+        paymentStatuses.includes(u.contract.paymentStatus),
+    );
   }
 
   // Filter by lease expiring within N days
@@ -39,7 +58,10 @@ export async function GET(request: NextRequest): Promise<NextResponse<RentalUnit
       const now = new Date();
       result = result.filter((u) => {
         if (!u.contract?.leaseExpires) return false;
-        const daysLeft = differenceInCalendarDays(new Date(u.contract.leaseExpires), now);
+        const daysLeft = differenceInCalendarDays(
+          new Date(u.contract.leaseExpires),
+          now,
+        );
         return daysLeft >= 0 && daysLeft <= days;
       });
     }
@@ -47,7 +69,9 @@ export async function GET(request: NextRequest): Promise<NextResponse<RentalUnit
 
   // Sort
   if (sortBy && validSortFields.includes(sortBy)) {
-    const dir = validSortDirections.includes(sortDirection) ? sortDirection : "asc";
+    const dir = validSortDirections.includes(sortDirection)
+      ? sortDirection
+      : "asc";
     const multiplier = dir === "asc" ? 1 : -1;
 
     result.sort((a, b) => {

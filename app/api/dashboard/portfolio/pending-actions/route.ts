@@ -30,7 +30,10 @@ export async function GET(): Promise<NextResponse<PendingAction[]>> {
 
     // Expiring contracts (within 60 days)
     if (unit.contract && unit.tenant) {
-      const days = differenceInCalendarDays(new Date(unit.contract.leaseExpires), now);
+      const days = differenceInCalendarDays(
+        new Date(unit.contract.leaseExpires),
+        now,
+      );
       if (days >= 0 && days <= EXPIRING_WITHIN_DAYS) {
         actions.push({
           id: `action-${actionId++}`,
