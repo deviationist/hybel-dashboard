@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { type RentalUnit } from "@/types/dashboard";
+import { type RentalUnit } from "@/types/unit";
 import { Badge } from "@/components/ui/badge";
 import { Currency } from "@/components/currency";
 import { Button } from "@/components/ui/button";

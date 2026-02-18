@@ -4,7 +4,7 @@ import {
   parseAsInteger,
   parseAsArrayOf,
 } from "nuqs";
-import { type UnitFilters } from "@/types/dashboard";
+import { type UnitFilters } from "@/types/unit";
 
 const filterParsers = {
   status: parseAsArrayOf(parseAsString),

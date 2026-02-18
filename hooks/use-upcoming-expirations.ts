@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { type UpcomingExpiration } from "@/types/dashboard";
+import { type UpcomingExpiration } from "@/types/api";
 
 export function useUpcomingExpirations() {
   const { data, isFetching } = useQuery<UpcomingExpiration[]>({

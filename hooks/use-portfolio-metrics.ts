@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { type PortfolioMetrics } from "@/types/dashboard";
+import { type PortfolioMetrics } from "@/types/api";
 
 export function usePortfolioMetrics() {
   const { data, isFetching } = useQuery<PortfolioMetrics>({

@@ -4,7 +4,7 @@ import {
   type PaymentStatus,
   type UnitSortField,
   type SortDirection,
-} from "@/types/dashboard";
+} from "@/types/unit";
 
 function toggleArrayItem<T>(arr: T[] | undefined, item: T): T[] | undefined {
   const current = arr ?? [];

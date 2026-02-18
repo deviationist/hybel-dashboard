@@ -1,4 +1,4 @@
-import { type PaymentStatus, type UnitStatus } from "@/types/dashboard";
+import { type PaymentStatus, type UnitStatus } from "@/types/unit";
 
 export const paymentStatusConfig: Record<
   PaymentStatus,

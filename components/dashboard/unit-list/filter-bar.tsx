@@ -1,4 +1,4 @@
-import { type UnitFilters } from "@/types/dashboard";
+import { type UnitFilters } from "@/types/unit";
 import { Button } from "@/components/ui/button";
 import { CalendarClock, X } from "lucide-react";
 import { cn } from "@/lib/utils";

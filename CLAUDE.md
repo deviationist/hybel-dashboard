@@ -33,7 +33,7 @@ Rental unit portfolio dashboard for landlords on Hybel.no. Built as a client-onl
 
 ## Key Conventions
 
-- Currency values use the `CurrencyAmount` type (`types/curreny.ts`) with `amount` + `currency` fields, formatted via `lib/currency.ts` using `Intl.NumberFormat`. Use `<Currency>` component for display (locale-aware via `useLocale()`)
+- Currency values use the `CurrencyAmount` type (`types/common.ts`) with `amount` + `currency` fields, formatted via `lib/currency.ts` using `Intl.NumberFormat`. Use `<Currency>` component for display (locale-aware via `useLocale()`)
 - Date formatting uses `date-fns` with `parseISO` and helpers in `lib/date.ts`. Use `<FormattedDate>` component for display (locale-aware via `useLocale()`)
 - Locale is accessed via `useLocale()` hook from `hooks/use-locale.ts` (defaults to `DEFAULT_LOCALE` from `lib/config.ts`, falls back to browser locale)
 - Default locale is defined once in `lib/config.ts` — import `DEFAULT_LOCALE` rather than hardcoding `"nb-NO"`

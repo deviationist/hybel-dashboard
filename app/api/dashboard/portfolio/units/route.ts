@@ -4,7 +4,7 @@ import {
   PaymentStatus,
   UnitSortField,
   SortDirection,
-} from "@/types/dashboard";
+} from "@/types/unit";
 import { formatAddress } from "@/lib/address";
 import { NextRequest, NextResponse } from "next/server";
 import { differenceInCalendarDays, parseISO } from "date-fns";

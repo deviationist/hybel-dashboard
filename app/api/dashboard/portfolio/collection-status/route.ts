@@ -1,4 +1,4 @@
-import { CollectionStatus } from "@/types/dashboard";
+import { CollectionStatus } from "@/types/api";
 import { NextResponse } from "next/server";
 import { delay } from "@/app/api/delay";
 import { units } from "../units/data";

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { type PendingAction } from "@/types/dashboard";
+import { type PendingAction } from "@/types/api";
 
 export function usePendingActions() {
   const { data, isFetching } = useQuery<PendingAction[]>({

@@ -95,6 +95,7 @@ Separation of concerns and single source of truth are principles I value highly 
 - **Pagination, search, or virtualization** — for landlords with large portfolios, the unit list should paginate (server-side), support search, or use virtual scrolling to stay performant
 - **Error boundaries** — proper error UI with retry actions instead of the current "No data" fallback
 - **TanStack Table** — as the filtering and sorting needs grow (e.g. multi-column sort, column visibility toggles), migrating to a headless table library would be more maintainable than hand-rolling
+- **Unit tests** — Vitest with React Testing Library for testing hooks and components in isolation. The custom hooks (`useUnits`, `useFilterBarActions`, `useCollectionStatus`, etc.) can be tested with `renderHook` without rendering any UI, and presentational components can be tested with lightweight render assertions
 - **End-to-end tests** — Playwright tests covering the filter-to-URL flow, the pending action scroll interaction, and keyboard navigation
 - **Responsive refinements** — the filter bar wraps on mobile but could be improved with a collapsible filter drawer
 - **Unit detail view** — the ability to navigate to a dedicated unit page (via URL, e.g. `/units/:id`) or open a modal dialog showing in-depth information such as payment history, tenant history, contract changes, maintenance logs, and tenant communication

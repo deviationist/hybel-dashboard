@@ -1,4 +1,4 @@
-import { type UnitSortField, type SortDirection } from "@/types/dashboard";
+import { type UnitSortField, type SortDirection } from "@/types/unit";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { type CollectionStatus } from "@/types/dashboard";
+import { type CollectionStatus } from "@/types/api";
 
 export function useCollectionStatus() {
   const { data, isFetching } = useQuery<CollectionStatus>({

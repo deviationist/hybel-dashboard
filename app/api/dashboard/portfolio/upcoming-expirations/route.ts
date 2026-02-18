@@ -1,4 +1,4 @@
-import { UpcomingExpiration } from "@/types/dashboard";
+import { UpcomingExpiration } from "@/types/api";
 import { NextResponse } from "next/server";
 import { delay } from "@/app/api/delay";
 import { units } from "../units/data";

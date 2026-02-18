@@ -1,4 +1,4 @@
-import { Address } from "@/types/dashboard";
+import { Address } from "@/types/common";
 
 export function formatAddress(address: Address): string {
   const lines = [address.line1, address.line2].filter(Boolean);

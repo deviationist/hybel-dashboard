@@ -1,4 +1,4 @@
-import { RentalUnit } from "@/types/dashboard";
+import { RentalUnit } from "@/types/unit";
 
 export const units: RentalUnit[] = [
   {

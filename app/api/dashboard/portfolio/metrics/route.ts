@@ -1,4 +1,4 @@
-import { PortfolioMetrics } from "@/types/dashboard";
+import { PortfolioMetrics } from "@/types/api";
 import { NextResponse } from "next/server";
 import { delay } from "@/app/api/delay";
 import { units } from "../units/data";

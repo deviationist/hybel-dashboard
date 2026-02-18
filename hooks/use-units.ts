@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { type RentalUnit, type UnitFilters } from "@/types/dashboard";
+import { type RentalUnit, type UnitFilters } from "@/types/unit";
 
 function buildQueryString(filters: UnitFilters): string {
   const params = new URLSearchParams();

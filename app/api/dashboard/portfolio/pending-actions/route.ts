@@ -1,4 +1,4 @@
-import { PendingAction } from "@/types/dashboard";
+import { PendingAction } from "@/types/api";
 import { NextResponse } from "next/server";
 import { delay } from "@/app/api/delay";
 import { units } from "../units/data";
