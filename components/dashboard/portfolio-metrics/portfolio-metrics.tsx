@@ -1,20 +1,13 @@
-import { type PortfolioMetrics } from "@/types/dashboard";
-import { useQuery } from "@tanstack/react-query";
 import { MetricCard } from "./metric-card";
 import { MetricCardSkeleton } from "./metric-card-skeleton";
 import { AlertCircle, Building2, TrendingUp, Users } from "lucide-react";
 import { Currency } from "@/components/currency";
+import { usePortfolioMetrics } from "@/hooks/use-portfolio-metrics";
 
 export function PortfolioMetrics() {
   const columnSpanClass = "col-span-full sm:col-span-6 lg:col-span-3";
-  const { data, isFetching } = useQuery<PortfolioMetrics>({
-    queryKey: ["dashboard", "portfolio", "metrics"],
-    queryFn: async () => {
-      const response = await fetch("/api/dashboard/portfolio/metrics");
-      if (!response.ok) throw new Error("Failed to fetch portfolio metrics");
-      return await response.json();
-    },
-  });
+  const { data, isFetching } = usePortfolioMetrics();
+
   if (isFetching) {
     return Array.from({ length: 4 }).map((_, i) => (
       <MetricCardSkeleton key={i} className={columnSpanClass} />

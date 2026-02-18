@@ -8,6 +8,7 @@ import {
 import { formatAddress } from "@/lib/address";
 import { NextRequest, NextResponse } from "next/server";
 import { differenceInCalendarDays, parseISO } from "date-fns";
+import { DEFAULT_LOCALE } from "@/lib/config";
 import { delay } from "@/app/api/delay";
 import { units } from "./data";
 
@@ -79,7 +80,7 @@ export async function GET(
         case "address": {
           const addrA = formatAddress(a.address);
           const addrB = formatAddress(b.address);
-          return multiplier * addrA.localeCompare(addrB, "nb-NO");
+          return multiplier * addrA.localeCompare(addrB, DEFAULT_LOCALE);
         }
         case "rent": {
           const rentA = a.contract?.monthlyRent.amount ?? 0;

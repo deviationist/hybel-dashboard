@@ -26,6 +26,8 @@ I also considered to use the opportunity to explore the use of [Convex.dev](http
 
 For table display I would use [TanStack Table](https://tanstack.com/table/latest) since it is a headless solution and we retain control over the presentation layer, but given the time constraint I'll do a more simple implementation using shadcn/ui.
 
+The mock API routes include artificial delays (250–400ms) to simulate real-world network latency. This makes it possible to see and verify the loading states — skeleton placeholders for initial loads, and a subtle opacity fade with a spinner for background refetches (e.g. when filters change).
+
 ### Dark mode
 
 Dark mode is fully functional, powered by [`next-themes`](https://github.com/pacocoursey/next-themes) which handles theme persistence and system preference detection. All components use semantic Tailwind tokens (`text-foreground`, `text-muted-foreground`, `bg-muted`, `border-border`) that adapt automatically, with explicit `dark:` variants for the colored icon backgrounds in portfolio metrics where semantic tokens don't apply.
@@ -76,6 +78,17 @@ Addresses are modeled as structured objects (`line1`, `line2`, `zip`, `city`, `c
 - The collection status bar chart has `role="img"` with a descriptive `aria-label`
 - The filtered unit count uses `aria-live="polite"` so screen readers announce changes
 
+### Code organization
+
+Separation of concerns and single source of truth are principles I value highly and have tried to follow throughout:
+
+- **One component per file** — each component lives in its own file, making it easy to find, test, and reason about in isolation. Subcomponents (e.g. `FilterToggle`, `SortButton`, `StatusDot`) are extracted into separate files rather than inlined alongside their parent.
+- **Shared display components** — `<Currency>` and `<FormattedDate>` encapsulate locale-aware formatting so that date and currency display logic isn't scattered across the codebase. Both resolve the locale through `useLocale()`, ensuring consistent formatting everywhere.
+- **Centralized constants** — the default locale is defined once in `lib/config.ts` and imported wherever needed, rather than being hardcoded as string literals across files. Currency is always carried by the data itself (`CurrencyAmount` type), so there's no need for a default constant.
+- **Formatting helpers** — address formatting (`formatAddress`, `formatAddressShort`), currency formatting (`formatCurrency`), and date formatting (`formatDate`) each live in dedicated utility files under `lib/`, keeping presentation logic out of components and API routes.
+- **Types as contracts** — shared types in `types/` define the shape of API responses, ensuring the API routes and consuming components agree on the data structure.
+- **Logic in hooks, not components** — component logic (data fetching, state management, filter actions, highlight coordination) is extracted into custom hooks (`useUnits`, `useExpandedUnit`, `useFilterBarActions`, `useUnitHighlight`, `useCollectionStatus`, etc.). This keeps components purely presentational and makes the logic independently testable — hooks can be unit tested with `renderHook` without needing to render and assert against JSX output, which is both simpler and more resilient to UI changes.
+
 ## What I would do with more time
 
 - **Empty state for new landlords** — a welcoming illustration and onboarding CTA when the portfolio has zero properties
@@ -85,6 +98,7 @@ Addresses are modeled as structured objects (`line1`, `line2`, `zip`, `city`, `c
 - **End-to-end tests** — Playwright tests covering the filter-to-URL flow, the pending action scroll interaction, and keyboard navigation
 - **Responsive refinements** — the filter bar wraps on mobile but could be improved with a collapsible filter drawer
 - **Unit detail view** — the ability to navigate to a dedicated unit page (via URL, e.g. `/units/:id`) or open a modal dialog showing in-depth information such as payment history, tenant history, contract changes, maintenance logs, and tenant communication
+- **Date-based filtering** — allow landlords to filter collection status and payment data by month or date range, rather than always showing the current month
 
 ## Getting Started
 

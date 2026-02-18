@@ -26,7 +26,10 @@ export async function GET(): Promise<NextResponse<CollectionStatus>> {
     }
   }
 
+  const month = new Date().toISOString();
+
   return NextResponse.json({
+    month,
     paidAmount: { amount: paid, currency: "NOK" },
     pendingAmount: { amount: pending, currency: "NOK" },
     overdueAmount: { amount: overdue, currency: "NOK" },

@@ -6,7 +6,7 @@ type CurrencyProps = CurrencyAmount & {
   options?: Omit<Intl.NumberFormatOptions, "style" | "currency">;
 };
 
-export function Currency({ amount, currency = "USD", options }: CurrencyProps) {
+export function Currency({ amount, currency, options }: CurrencyProps) {
   const locale = useLocale();
   return <>{formatCurrency(amount, currency, locale, options)}</>;
 }

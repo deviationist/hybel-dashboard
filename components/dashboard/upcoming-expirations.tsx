@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { type UpcomingExpiration } from "@/types/dashboard";
 import { daysUntil } from "@/lib/date";
 import { FormattedDate } from "@/components/formatted-date";
 import { formatAddressShort } from "@/lib/address";
+import { useUpcomingExpirations } from "@/hooks/use-upcoming-expirations";
 
 type UpcomingExpirationsProps = {
   className?: string;
@@ -14,18 +13,8 @@ export function UpcomingExpirations({
   className,
   onExpirationClick,
 }: UpcomingExpirationsProps) {
-  const { data: upcomingExpirations, isFetching } = useQuery<
-    UpcomingExpiration[]
-  >({
-    queryKey: ["dashboard", "portfolio", "upcoming-expirations"],
-    queryFn: async () => {
-      const response = await fetch(
-        "/api/dashboard/portfolio/upcoming-expirations",
-      );
-      if (!response.ok) throw new Error("Failed to fetch upcoming expirations");
-      return await response.json();
-    },
-  });
+  const { data: upcomingExpirations, isFetching } = useUpcomingExpirations();
+
   if (isFetching) {
     return <></>; // TODO: Add loading skeleton
   }
@@ -61,7 +50,7 @@ export function UpcomingExpirations({
                 }}
                 role="button"
                 tabIndex={0}
-                aria-label={`${formatAddressShort(p.address)}: expires in ${daysUntil(p.leaseExpires)} days`}
+                aria-label={`${formatAddressShort(p.address)}: expires in ${days} days`}
               >
                 <div>
                   <p className="text-sm font-medium">

@@ -1,11 +1,9 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { formatAddressShort } from "@/lib/address";
-import { type PendingAction } from "@/types/dashboard";
 import {
   Item,
   ItemContent,
@@ -16,6 +14,7 @@ import {
   ItemMedia,
 } from "@/components/ui/item";
 import { AlertTriangle, Calendar, Home } from "lucide-react";
+import { usePendingActions } from "@/hooks/use-pending-actions";
 
 type PendingActionsProps = {
   id?: string;
@@ -39,14 +38,7 @@ export function PendingActions({
   className,
   onActionClick,
 }: PendingActionsProps) {
-  const { data, isFetching } = useQuery<PendingAction[]>({
-    queryKey: ["dashboard", "portfolio", "pending-actions"],
-    queryFn: async () => {
-      const response = await fetch("/api/dashboard/portfolio/pending-actions");
-      if (!response.ok) throw new Error("Failed to fetch pending actions");
-      return await response.json();
-    },
-  });
+  const { data, isFetching } = usePendingActions();
 
   return (
     <div id={id} className={className}>

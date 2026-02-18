@@ -8,24 +8,15 @@ import { CollectionStatus } from "./collection-status";
 import { UpcomingExpirations } from "./upcoming-expirations";
 import { UnitList } from "./unit-list";
 import { PendingActions } from "./pending-actions";
-import { useCallback, useState } from "react";
+import { useUnitHighlight } from "@/hooks/use-unit-highlight";
 
 type DashboardProps = {
   className?: string;
 };
 
 export function Dashboard({ className }: DashboardProps) {
-  const [highlightedUnitId, setHighlightedUnitId] = useState<string | null>(
-    null,
-  );
-
-  const handleActionClick = useCallback((unitId: string) => {
-    setHighlightedUnitId(unitId);
-  }, []);
-
-  const handleHighlightHandled = useCallback(() => {
-    setHighlightedUnitId(null);
-  }, []);
+  const { highlightedUnitId, handleActionClick, handleHighlightHandled } =
+    useUnitHighlight();
 
   return (
     <div className={cn("grid grid-cols-12 gap-6", className)}>
@@ -33,14 +24,14 @@ export function Dashboard({ className }: DashboardProps) {
       <Separator className="col-span-full my-2" />
       <PortfolioMetrics />
       <CollectionStatus className="col-span-full" />
-      <UpcomingExpirations
-        className="col-span-full"
-        onExpirationClick={handleActionClick}
-      />
       <PendingActions
         id="pending-actions"
         className="col-span-full"
         onActionClick={handleActionClick}
+      />
+      <UpcomingExpirations
+        className="col-span-full"
+        onExpirationClick={handleActionClick}
       />
       <UnitList
         className="col-span-full"

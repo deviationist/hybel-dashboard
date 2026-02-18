@@ -1,15 +1,10 @@
-import {
-  type UnitFilters,
-  type UnitStatus,
-  type PaymentStatus,
-  type UnitSortField,
-  type SortDirection,
-} from "@/types/dashboard";
+import { type UnitFilters } from "@/types/dashboard";
 import { Button } from "@/components/ui/button";
 import { CalendarClock, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FilterToggle } from "./filter-toggle";
 import { SortButton } from "./sort-button";
+import { useFilterBarActions } from "@/hooks/use-filter-bar-actions";
 
 type FilterBarProps = {
   className?: string;
@@ -17,52 +12,15 @@ type FilterBarProps = {
   onChange: (filters: UnitFilters) => void;
 };
 
-function toggleArrayItem<T>(arr: T[] | undefined, item: T): T[] | undefined {
-  const current = arr ?? [];
-  const next = current.includes(item)
-    ? current.filter((v) => v !== item)
-    : [...current, item];
-  return next.length > 0 ? next : undefined;
-}
-
 export function FilterBar({ className, filters, onChange }: FilterBarProps) {
-  const hasFilters =
-    (filters.status && filters.status.length > 0) ||
-    (filters.paymentStatus && filters.paymentStatus.length > 0) ||
-    filters.expiringWithinDays;
-
-  const toggleStatus = (status: UnitStatus) => {
-    onChange({ ...filters, status: toggleArrayItem(filters.status, status) });
-  };
-
-  const togglePayment = (ps: PaymentStatus) => {
-    onChange({
-      ...filters,
-      paymentStatus: toggleArrayItem(filters.paymentStatus, ps),
-    });
-  };
-
-  const toggleExpiring = () => {
-    onChange({
-      ...filters,
-      expiringWithinDays: filters.expiringWithinDays ? undefined : 90,
-    });
-  };
-
-  const handleSort = (
-    field: UnitSortField,
-    direction: SortDirection | undefined,
-  ) => {
-    if (direction) {
-      onChange({ ...filters, sortBy: field, sortDirection: direction });
-    } else {
-      onChange({ ...filters, sortBy: undefined, sortDirection: undefined });
-    }
-  };
-
-  const clearAll = () => {
-    onChange({});
-  };
+  const {
+    hasFilters,
+    toggleStatus,
+    togglePayment,
+    toggleExpiring,
+    handleSort,
+    clearAll,
+  } = useFilterBarActions(filters, onChange);
 
   return (
     <div className={cn("space-y-2 px-6 pb-2", className)}>

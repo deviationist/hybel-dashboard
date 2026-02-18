@@ -19,6 +19,7 @@ export type Contract = {
 };
 
 export type CollectionStatus = {
+  month: string;
   paidAmount: CurrencyAmount;
   pendingAmount: CurrencyAmount;
   overdueAmount: CurrencyAmount;

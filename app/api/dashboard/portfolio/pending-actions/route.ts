@@ -4,6 +4,7 @@ import { delay } from "@/app/api/delay";
 import { units } from "../units/data";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { formatCurrency } from "@/lib/currency";
+import { DEFAULT_LOCALE } from "@/lib/config";
 
 const EXPIRING_WITHIN_DAYS = 60;
 
@@ -23,7 +24,7 @@ export async function GET(): Promise<NextResponse<PendingAction[]>> {
         unitId: unit.id,
         address: unit.address,
         type: "overdue_payment",
-        description: `Overdue payment — ${formatCurrency(rent.amount, rent.currency, "nb-NO")}`,
+        description: `Overdue payment — ${formatCurrency(rent.amount, rent.currency, DEFAULT_LOCALE)}`,
         severity: "high",
       });
     }

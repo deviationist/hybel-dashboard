@@ -1,25 +1,19 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Currency } from "../currency";
-import { useQuery } from "@tanstack/react-query";
-import { type CollectionStatus } from "@/types/dashboard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusDot } from "./status-dot";
+import { formatDate } from "@/lib/date";
+import { useLocale } from "@/hooks/use-locale";
+import { useCollectionStatus } from "@/hooks/use-collection-status";
 
 type CollectionStatusProps = {
   className?: string;
 };
 
 export function CollectionStatus({ className }: CollectionStatusProps) {
-  const { data, isFetching } = useQuery<CollectionStatus>({
-    queryKey: ["dashboard", "portfolio", "collection-status"],
-    queryFn: async () => {
-      const response = await fetch(
-        "/api/dashboard/portfolio/collection-status",
-      );
-      if (!response.ok) throw new Error("Failed to fetch collection status");
-      return await response.json();
-    },
-  });
+  const locale = useLocale();
+  const { data, isFetching, percentages } = useCollectionStatus();
+
   if (isFetching) {
     return (
       <div className={className}>
@@ -29,49 +23,43 @@ export function CollectionStatus({ className }: CollectionStatusProps) {
           aria-label="Loading metric"
         >
           <CardHeader className="pb-3">
-            <Skeleton className="h-4" aria-hidden="true" />
+            <Skeleton className="h-4 max-w-1/2" aria-hidden="true" />
           </CardHeader>
           <CardContent className="space-y-3">
             <Skeleton className="h-7" aria-hidden="true" />
-            <Skeleton className="h-4" aria-hidden="true" />
+            <Skeleton className="h-4 max-w-1/3" aria-hidden="true" />
           </CardContent>
         </Card>
       </div>
     );
   }
-  if (!data) {
+  if (!data || !percentages) {
     return <>No data</>; // TODO: Display error dialog
   }
   return (
     <Card className={className}>
       <CardHeader className="pb-3">
         <CardTitle className="font-medium text-muted-foreground">
-          Collection Status — February
+          Collection Status — {formatDate(data.month, locale, "MMMM yyyy")}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <div
           className="flex h-7 overflow-hidden rounded-lg bg-muted"
           role="img"
-          aria-label={`Collection progress: paid ${Math.round((data.paidAmount.amount / data.collectableRent.amount) * 100)}%, pending ${Math.round((data.pendingAmount.amount / data.collectableRent.amount) * 100)}%, overdue ${Math.round((data.overdueAmount.amount / data.collectableRent.amount) * 100)}%`}
+          aria-label={`Collection progress: paid ${Math.round(percentages.paid)}%, pending ${Math.round(percentages.pending)}%, overdue ${Math.round(percentages.overdue)}%`}
         >
           <div
             className="bg-gradient-to-r from-emerald-500 to-emerald-600 transition-all duration-500"
-            style={{
-              width: `${(data.paidAmount.amount / data.collectableRent.amount) * 100}%`,
-            }}
+            style={{ width: `${percentages.paid}%` }}
           />
           <div
             className="bg-gradient-to-r from-amber-500 to-amber-600 transition-all duration-500"
-            style={{
-              width: `${(data.pendingAmount.amount / data.collectableRent.amount) * 100}%`,
-            }}
+            style={{ width: `${percentages.pending}%` }}
           />
           <div
             className="bg-gradient-to-r from-red-500 to-red-600 transition-all duration-500"
-            style={{
-              width: `${(data.overdueAmount.amount / data.collectableRent.amount) * 100}%`,
-            }}
+            style={{ width: `${percentages.overdue}%` }}
           />
         </div>
         <div className="flex flex-wrap gap-5 text-xs text-muted-foreground">
