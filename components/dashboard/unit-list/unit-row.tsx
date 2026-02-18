@@ -14,7 +14,7 @@ import {
   ItemDescription,
   ItemActions,
 } from "@/components/ui/item";
-import { ChevronDown, Home, Send, Wrench } from "lucide-react";
+import { ChevronDown, DoorOpen, Home, Send, Wrench } from "lucide-react";
 import { paymentStatusConfig, unitStatusConfig } from "./status-config";
 
 type UnitRowProps = {
@@ -150,7 +150,11 @@ export function UnitRow({
               </>
             ) : (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Wrench className="size-4" />
+                {unit.status === "vacant" ? (
+                  <DoorOpen className="size-4" />
+                ) : (
+                  <Wrench className="size-4" />
+                )}
                 {unit.status === "vacant"
                   ? "This unit is currently vacant and available for new tenants."
                   : "This unit is currently under maintenance."}
