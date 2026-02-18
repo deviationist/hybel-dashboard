@@ -84,7 +84,7 @@ Separation of concerns and single source of truth are principles I value highly 
 
 - **One component per file** — each component lives in its own file, making it easy to find, test, and reason about in isolation. Subcomponents (e.g. `FilterToggle`, `SortButton`, `StatusDot`) are extracted into separate files rather than inlined alongside their parent.
 - **Shared display components** — `<Currency>` and `<FormattedDate>` encapsulate locale-aware formatting so that date and currency display logic isn't scattered across the codebase. Both resolve the locale through `useLocale()`, ensuring consistent formatting everywhere.
-- **Centralized constants** — the default locale is defined once in `lib/config.ts` and imported wherever needed, rather than being hardcoded as string literals across files. Currency is always carried by the data itself (`CurrencyAmount` type), so there's no need for a default constant.
+- **Centralized constants** — the default locale is defined once in `lib/config.ts` and imported wherever needed, rather than being hardcoded as string literals across files. Currency is always carried by the data itself (`CurrencyAmount` type), so there's no need for a default constant. Contract expiration thresholds are also centralized here: `EXPIRING_WITHIN_DAYS` (180) defines the window for a contract to be considered "expiring soon" across all API routes and widgets, while `URGENT_WITHIN_DAYS` (90) is a visual urgency threshold within that window — contracts closer than this are highlighted in red rather than amber.
 - **Formatting helpers** — address formatting (`formatAddress`, `formatAddressShort`), currency formatting (`formatCurrency`), and date formatting (`formatDate`) each live in dedicated utility files under `lib/`, keeping presentation logic out of components and API routes.
 - **Types as contracts** — shared types in `types/` define the shape of API responses, ensuring the API routes and consuming components agree on the data structure.
 - **Logic in hooks, not components** — component logic (data fetching, state management, filter actions, highlight coordination) is extracted into custom hooks (`useUnits`, `useExpandedUnit`, `useFilterBarActions`, `useUnitHighlight`, `useCollectionStatus`, etc.). This keeps components purely presentational and makes the logic independently testable — hooks can be unit tested with `renderHook` without needing to render and assert against JSX output, which is both simpler and more resilient to UI changes.
@@ -100,6 +100,7 @@ Separation of concerns and single source of truth are principles I value highly 
 - **Responsive refinements** — the filter bar wraps on mobile but could be improved with a collapsible filter drawer
 - **Unit detail view** — the ability to navigate to a dedicated unit page (via URL, e.g. `/units/:id`) or open a modal dialog showing in-depth information such as payment history, tenant history, contract changes, maintenance logs, and tenant communication
 - **Date-based filtering** — allow landlords to filter collection status and payment data by month or date range, rather than always showing the current month
+- **Location filtering** — allow landlords with properties in multiple cities to filter the dashboard by location, narrowing all widgets to a specific city or region
 
 ## Getting Started
 

@@ -4,9 +4,7 @@ import { delay } from "@/app/api/delay";
 import { units } from "../units/data";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { formatCurrency } from "@/lib/currency";
-import { DEFAULT_LOCALE } from "@/lib/config";
-
-const EXPIRING_WITHIN_DAYS = 60;
+import { DEFAULT_LOCALE, EXPIRING_WITHIN_DAYS } from "@/lib/config";
 
 export async function GET(): Promise<NextResponse<PendingAction[]>> {
   await delay(250);
@@ -29,7 +27,7 @@ export async function GET(): Promise<NextResponse<PendingAction[]>> {
       });
     }
 
-    // Expiring contracts (within 60 days)
+    // Expiring contracts (within 180 days)
     if (unit.contract && unit.tenant) {
       const days = differenceInCalendarDays(
         parseISO(unit.contract.leaseExpires),

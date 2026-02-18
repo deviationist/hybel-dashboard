@@ -3,8 +3,7 @@ import { NextResponse } from "next/server";
 import { delay } from "@/app/api/delay";
 import { units } from "../units/data";
 import { compareAsc, differenceInCalendarDays, parseISO } from "date-fns";
-
-const EXPIRING_WITHIN_DAYS = 180;
+import { EXPIRING_WITHIN_DAYS } from "@/lib/config";
 
 export async function GET(): Promise<NextResponse<UpcomingExpiration[]>> {
   await delay(350);

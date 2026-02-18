@@ -37,4 +37,5 @@ Rental unit portfolio dashboard for landlords on Hybel.no. Built as a client-onl
 - Date formatting uses `date-fns` with `parseISO` and helpers in `lib/date.ts`. Use `<FormattedDate>` component for display (locale-aware via `useLocale()`)
 - Locale is accessed via `useLocale()` hook from `hooks/use-locale.ts` (defaults to `DEFAULT_LOCALE` from `lib/config.ts`, falls back to browser locale)
 - Default locale is defined once in `lib/config.ts` — import `DEFAULT_LOCALE` rather than hardcoding `"nb-NO"`
+- Contract expiration thresholds are centralized in `lib/config.ts` — `EXPIRING_WITHIN_DAYS` (180) controls which contracts appear as "expiring soon" across all API routes and widgets, while `URGENT_WITHIN_DAYS` (90) controls the visual urgency threshold (red vs amber styling, countdown badge display)
 - Component logic (data fetching, state, filters) lives in custom hooks under `hooks/` — keep components presentational

@@ -56,7 +56,7 @@ export function PortfolioMetrics() {
         className={columnSpanClass}
         label="Pending Actions"
         value={data.pendingActions.amount.toString()}
-        subtitle={`${data.pendingActions.overduePayments} overdue, ${data.pendingActions.pendingPayments} pending, ${data.pendingActions.vacantUnits} vacant`}
+        subtitle={`${data.pendingActions.overduePayments} overdue, ${data.pendingActions.expiringContracts} expiring, ${data.pendingActions.vacantUnits} vacant`}
         onClick={() =>
           document
             .getElementById("pending-actions")

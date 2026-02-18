@@ -45,7 +45,7 @@ export function PendingActions({
       <Card>
         <CardHeader>
           <CardTitle className="font-medium text-muted-foreground">
-            Pending Actions
+            Pending Actions{data ? ` (${data.length})` : ""}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">

@@ -5,6 +5,7 @@ import { Currency } from "@/components/currency";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { daysUntil } from "@/lib/date";
+import { URGENT_WITHIN_DAYS } from "@/lib/config";
 import { FormattedDate } from "@/components/formatted-date";
 import { formatAddress } from "@/lib/address";
 import {
@@ -123,7 +124,7 @@ export function UnitRow({
                     <p className="text-muted-foreground">Lease Expires</p>
                     <p className="font-medium">
                       <FormattedDate date={unit.contract.leaseExpires} />
-                      {days !== null && days <= 90 && (
+                      {days !== null && days <= URGENT_WITHIN_DAYS && (
                         <span className="text-amber-600 ml-1">({days}d)</span>
                       )}
                     </p>

@@ -3,6 +3,7 @@ import { daysUntil } from "@/lib/date";
 import { FormattedDate } from "@/components/formatted-date";
 import { formatAddressShort } from "@/lib/address";
 import { useUpcomingExpirations } from "@/hooks/use-upcoming-expirations";
+import { URGENT_WITHIN_DAYS } from "@/lib/config";
 
 type UpcomingExpirationsProps = {
   className?: string;
@@ -26,6 +27,7 @@ export function UpcomingExpirations({
       <CardHeader className="pb-3">
         <CardTitle className="font-medium text-muted-foreground">
           ⚠ Contract expiration within 6 months
+          {upcomingExpirations ? ` (${upcomingExpirations.length})` : ""}
         </CardTitle>
       </CardHeader>
       <CardContent className="divide-y divide-border">
@@ -36,7 +38,7 @@ export function UpcomingExpirations({
         ) : (
           upcomingExpirations.map((p) => {
             const days = daysUntil(p.leaseExpires)!;
-            const urgent = days < 90;
+            const urgent = days < URGENT_WITHIN_DAYS;
             return (
               <div
                 key={p.unitId}

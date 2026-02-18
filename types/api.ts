@@ -17,7 +17,7 @@ export type PortfolioMetrics = {
   pendingActions: {
     amount: number;
     overduePayments: number;
-    pendingPayments: number;
+    expiringContracts: number;
     vacantUnits: number;
   };
 };
