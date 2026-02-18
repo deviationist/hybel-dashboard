@@ -20,10 +20,10 @@ Rental unit portfolio dashboard for landlords on Hybel.no. Built as a client-onl
 **Provider stack** (in `client-app.tsx`):
 
 - `QueryClientProvider` (TanStack Query) — data fetching/caching
-- `LocaleProvider` — locale string context (hardcoded to `nb-NO` currently)
+- `LocaleProvider` — locale string context (defaults to `DEFAULT_LOCALE` from `lib/config.ts`)
 - `ThemeProvider` — next-themes wrapper for dark/light mode
 
-**Dashboard structure:** `components/dashboard/dashboard.tsx` is the main container using a 12-column CSS grid. Dashboard widgets are placed directly in the grid (no wrapper divs). Each widget manages its own data fetching via TanStack Query.
+**Dashboard structure:** `components/dashboard/dashboard.tsx` is the main container using a 12-column CSS grid. Dashboard widgets are placed directly in the grid (no wrapper divs). Each widget delegates data fetching and logic to custom hooks under `hooks/`, keeping components purely presentational.
 
 **API routes:** Mock data endpoints under `app/api/dashboard/`. These return typed responses using Next.js route handlers (`NextResponse.json`).
 
@@ -35,4 +35,6 @@ Rental unit portfolio dashboard for landlords on Hybel.no. Built as a client-onl
 
 - Currency values use the `CurrencyAmount` type (`types/curreny.ts`) with `amount` + `currency` fields, formatted via `lib/currency.ts` using `Intl.NumberFormat`. Use `<Currency>` component for display (locale-aware via `useLocale()`)
 - Date formatting uses `date-fns` with `parseISO` and helpers in `lib/date.ts`. Use `<FormattedDate>` component for display (locale-aware via `useLocale()`)
-- Locale is accessed via `useLocale()` hook from `hooks/use-locale.ts` (hardcoded to `nb-NO`, falls back to browser locale)
+- Locale is accessed via `useLocale()` hook from `hooks/use-locale.ts` (defaults to `DEFAULT_LOCALE` from `lib/config.ts`, falls back to browser locale)
+- Default locale is defined once in `lib/config.ts` — import `DEFAULT_LOCALE` rather than hardcoding `"nb-NO"`
+- Component logic (data fetching, state, filters) lives in custom hooks under `hooks/` — keep components presentational
