@@ -1,28 +1,28 @@
 # Hybel Dashboard
 
-This repo contains a self-contained dashboard widget that displays rental unit portfolio insight to landlords.
+This repo contains a self-contained dashboard widget that displays rental unit portfolio insights to landlords.
 
 ## The use of AI-tools
 
 ### Claude Code
-I started out without Claude Code, for two reasons - I wanted to be fully in control when I laid out the foundation (even tho planning with Claude works well), and I wanted to make sure I was not "detached" from the code which is prone to happen when only prompting. Since I will present this code and the reasoning behind it I wanted to reduce the use of Claude until the foundation was fully laid out. I introduced Claude using Claude Code where I developed the filtering feature, the unit list, generated more test data etc. I also used Claude to document the project.
+I started out without Claude Code, for two reasons - I wanted to be fully in control when I laid out the foundation (even though planning with Claude works well), and I wanted to make sure I was not "detached" from the code which is prone to happen when only prompting. Since I will present this code and the reasoning behind it I wanted to reduce the use of Claude until the foundation was fully laid out. I introduced Claude using Claude Code where I developed the filtering feature, the unit list, generated more test data etc. I also used Claude to document the project.
 
 ### Figma AI
-I'm no designer, so I used Figma AI to get me going on a basic dashboard layout. I started out by surveying the available data, create an intention about which views I'd like to display to the landlord. I then used these views in my prompts to Figma.
+I'm no designer, so I used Figma AI to get me going on a basic dashboard layout. I started out by surveying the available data, created an intention about which views I'd like to display to the landlord. I then used these views in my prompts to Figma.
 
-## Consideration & Assumptions
+## Considerations & Assumptions
 
 My initial thoughts would be to use GraphQL and Apollo Client to allow for future data needs to the dashboard, since sending multiple HTTP requests to custom API endpoints would create overhead, while using Apollo's BatchHttpLink would allow us to execute multiple queries in one request.
 
-I'm choosing Next.js due to the need for simple API endpoints. I'll also completely disabled SSR to allow for a client only React component dynamic, and not to focus on the dynamic between server- and client side dynamic at this point.
+I'm choosing Next.js due to the need for simple API endpoints. I'll also completely disable SSR to allow for a client-only React component model, and not to focus on the interplay between server- and client-side rendering at this point.
 
-I'll use shadcn/ui and Tailwind CSS since I'm very familiar with it, and since it create a good foundation to future work as well as giving a basic level of WCAG-compliance.
+I'll use shadcn/ui and Tailwind CSS since I'm very familiar with it, and since it creates a good foundation for future work as well as giving a basic level of WCAG-compliance.
 
 I'm using Figma AI to get some initial inspiration on how to present the data. While waiting for Figma to generate the sketches I converted the Hybel-logo from PNG to vector, as a nice design-touch to get the basic branding in place.
 
 I'll use CSS grids for flexible arrangement of the different widget elements, and I'll try to avoid wrapper divs inside the various components, so that each visible element is directly placed in the grid, not inside a wrapper container.
 
-I also considered to use the opportunity to explore the use of [Convex.dev](https://convex.dev/) to easily allow for realtime data via websockets. For this case I chose to use [TanStack Query](https://tanstack.com/query/latest).
+I also considered exploring [Convex.dev](https://convex.dev/) to easily allow for realtime data via websockets. For this case I chose to use [TanStack Query](https://tanstack.com/query/latest).
 
 For table display I would use [TanStack Table](https://tanstack.com/table/latest) since it is a headless solution and we retain control over the presentation layer, but given the time constraint I'll do a more simple implementation using shadcn/ui.
 
